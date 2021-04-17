@@ -1,5 +1,5 @@
 // Pega imagem
-const img = document.getElementById('img');
+const img = document.querySelector('img');
 
 // Cria um canvas com o tamanho da imagem no contexto 2d;
 const canvas = document.createElement("canvas");
@@ -15,6 +15,8 @@ const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
 
 // Para cada pixel temos que definir as cores red(r), green(g), blue(b)
 var r, g, b;
+
+// Vetor para armezenar as cores
 const coresPresentes = {};
 
 for (let i = 0; n = data.length, i < n; i += 4) {
@@ -24,6 +26,7 @@ for (let i = 0; n = data.length, i < n; i += 4) {
 
   const hex = rgbToHex(r, g, b);
 
+  // Insere no vetor Cores presentes as cores
   if (coresPresentes[hex] === undefined) {
     coresPresentes[hex] = 1;
   } else {
@@ -31,7 +34,7 @@ for (let i = 0; n = data.length, i < n; i += 4) {
   }
 }
 
-function componentToHex(number) {
+function numberToHex(number) {
   var hex = number.toString(16);
   if (hex.length < 2) {
     hex = "0" + hex;
@@ -39,8 +42,9 @@ function componentToHex(number) {
   return hex;
 }
 
+// Transformando a imagem de RGB para HEX
 function rgbToHex(r, g, b) {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  return "#" + numberToHex(r) + numberToHex(g) + numberToHex(b);
 }
 
 console.log(JSON.stringify(coresPresentes));
