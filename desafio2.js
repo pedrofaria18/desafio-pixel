@@ -18,7 +18,7 @@ console.log(base64);
   Para 3 cores achadas, tentar montar um número binário válido
 */
 const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-const p = document.querySelector('p');
+var binary = '';
 var r, g, b;
 
 for (let i = 0; i < data.length; i+=4) {
@@ -29,8 +29,9 @@ for (let i = 0; i < data.length; i+=4) {
   const rgb = `rgb(${r}, ${g}, ${b})`;
 
   if(rgb == "rgb(255, 255, 255)") {
-    p.innerHTML += 0
+    binary += 0
   } else if(rgb == "rgb(96, 192, 0)") {
-    p.innerHTML += 1
+    binary += 1
   }
 }
+console.log(binary)
