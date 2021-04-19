@@ -8,7 +8,7 @@ canvas.height = img.height;
 const context = canvas.getContext("2d");
 
 // Desenha img no canvas, com a imagem e as cordenadas desejadas
-context.drawImage(img, 0, 0);
+context.drawImage(img, 0, 0, canvas.width, canvas.height);
 
 //Ler o canvas pixel a pixel
 const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
@@ -17,34 +17,26 @@ const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
 var r, g, b;
 
 // Vetor para armezenar as cores
-const coresPresentes = {};
+const coresPresentes = {
+  verde: 0,
+  branco: 0,
+  preto: 0,
+}
 
-for (let i = 0; i < data.length; i += 4) {
+for (let i = 0; i < data.length; i+=4) {
   r = data[i]; // red
   g = data[i + 1]; // green
   b = data[i + 2]; // blue
 
-  const hex = rgbToHex(r, g, b);
+  const rgb = `rgb(${r}, ${g}, ${b})`;
 
-  // Insere no vetor Cores presentes as cores
-  if (coresPresentes[hex] === undefined) {
-    coresPresentes[hex] = 1;
-  } else {
-    coresPresentes[hex]++;
+  if(rgb == "rgb(0, 0, 0)") {
+    coresPresentes.preto++;
+  } else if(rgb == "rgb(255, 255, 255)") {
+    coresPresentes.branco++;
+  } else if(rgb == "rgb(96, 192, 0)") {
+    coresPresentes.verde++;
   }
-}
-
-// Transformando a imagem de RGB para HEX
-function rgbToHex(r, g, b) {
-  return "#" + numberToHex(r) + numberToHex(g) + numberToHex(b);
-}
-
-function numberToHex(number) {
-  var hex = number.toString(16);
-  if (hex.length < 2) {
-    hex = "0" + hex;
-  }
-  return hex;
 }
 
 console.log(coresPresentes);
