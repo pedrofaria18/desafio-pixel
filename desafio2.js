@@ -14,6 +14,7 @@ var base64 = canvas.toDataURL();
 console.log(base64);
 
 
+
 /*
   Para 3 cores achadas, tentar montar um número binário válido
 */
@@ -35,3 +36,16 @@ for (let i = 0; i < data.length; i+=4) {
   }
 }
 console.log(binary)
+
+
+
+
+
+/**
+ * Utilizando uma biblioteca de reconhecimento de texto em imagens
+*/
+document.getElementById("imgToText").addEventListener("click", function(){
+  Tesseract.recognize("./Syngenta.bmp").then(function(result){
+    console.log(result);
+  })
+});
