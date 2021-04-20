@@ -10,33 +10,36 @@ context.drawImage(img, 0, 0, canvas.width, canvas.height);
 /*
   Img to Base64
 */
-var base64 = canvas.toDataURL();
-console.log(base64);
+document.getElementById("imgToBase64").addEventListener("click", function() {
+  var base64 = canvas.toDataURL();
+  alert(base64);
+})
 
 
 
 /*
   Para 3 cores achadas, tentar montar um número binário válido
 */
-const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-var binary = '';
-var r, g, b;
+document.getElementById("imgToBinary").addEventListener("click", function() {
+  const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+  var binary = '';
+  var r, g, b;
 
-for (let i = 0; i < data.length; i+=4) {
-  r = data[i];
-  g = data[i + 1];
-  b = data[i + 2];
+  for (let i = 0; i < data.length; i+=4) {
+    r = data[i];
+    g = data[i + 1];
+    b = data[i + 2];
 
-  const rgb = `rgb(${r}, ${g}, ${b})`;
+    const rgb = `rgb(${r}, ${g}, ${b})`;
 
-  if(rgb == "rgb(255, 255, 255)") {
-    binary += 0
-  } else if(rgb == "rgb(96, 192, 0)") {
-    binary += 1
+    if(rgb == "rgb(255, 255, 255)") {
+      binary += 0
+    } else if(rgb == "rgb(96, 192, 0)") {
+      binary += 1
+    }
   }
-}
-console.log(binary)
-
+  alert(binary)
+});
 
 
 
@@ -46,6 +49,6 @@ console.log(binary)
 */
 document.getElementById("imgToText").addEventListener("click", function(){
   Tesseract.recognize("./Syngenta.bmp").then(function(result){
-    console.log(result);
+    alert(result.text);
   })
 });
